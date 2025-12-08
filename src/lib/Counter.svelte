@@ -1,10 +1,12 @@
 <script lang="ts">
-  let count: number = $state(0)
-  const increment = () => {
-    count += 1
-  }
+    import {invoke} from '@tauri-apps/api/core';
+
+    let count: number = $state(0)
+    const increment = async () => {
+        count = await invoke('my_custom_command', {arg: count});
+    }
 </script>
 
 <button onclick={increment}>
-  count is {count}
+    count is {count}
 </button>
