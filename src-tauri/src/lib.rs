@@ -2,8 +2,15 @@ use tauri_plugin_deep_link::DeepLinkExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
+    #[allow(unused_mut)]
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}));
+    }
+
+    builder
         .plugin(tauri_plugin_deep_link::init())
         .setup(|app| {
             if cfg!(debug_assertions) {
@@ -13,6 +20,7 @@ pub fn run() {
                         .build(),
                 )?;
             }
+            #[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
             app.deep_link().register_all()?;
             println!("deep-link: {:?}", app.deep_link().get_current());
             app.deep_link().on_open_url(|urls| {

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">tauri-deeplink-sample</string>
+    <string name="main_activity_title">tauri-deeplink-sample</string>
+</resources>

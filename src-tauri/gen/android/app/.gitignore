@@ -1,0 +1,6 @@
+/src/main/java/com/tauri/tauri_deeplink_sample/generated
+/src/main/jniLibs/**/*.so
+/src/main/assets/tauri.conf.json
+/tauri.build.gradle.kts
+/proguard-tauri.pro
+/tauri.properties
